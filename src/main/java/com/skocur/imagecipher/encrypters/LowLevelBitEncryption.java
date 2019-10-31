@@ -32,7 +32,6 @@ public class LowLevelBitEncryption extends Encrypter {
     }
 
     private void encryptBitCharacter(int c) {
-        if (col < image.getWidth() - 1) {
             int mask = 0b11111111;
             int rgb = image.getRGB(col, row);
             int r = (rgb >> 16) & mask;
@@ -40,14 +39,16 @@ public class LowLevelBitEncryption extends Encrypter {
 
             int b = image.getRGB(col + 1, row) & mask;
             b -= c;
+            b=b&mask;
 
             Color color = new Color(r, g, b);
             image.setRGB(col, row, color.getRGB());
 
             col += 2;
-        } else {
-            row++;
-            col = 0;
-        }
+
+            if(!(col < image.getWidth() - 1)){
+                row++;
+                col = 0;
+            }
     }
 }

@@ -33,6 +33,10 @@ public abstract class Encrypter {
 
     public abstract void encrypt(String text);
 
+    public int getMaxSize(){
+        return (image.getWidth())*image.getHeight()/2/8-10;
+    }
+
     /**
      * Method that is always invoked after all encryption processes have finished.
      */

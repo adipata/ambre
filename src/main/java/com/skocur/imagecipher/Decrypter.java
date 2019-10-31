@@ -71,6 +71,7 @@ public class Decrypter {
 
     public String decryptLowLevelBits() {
         StringBuilder stringBuilder = new StringBuilder();
+        Integer messageLength=null;
 
         while (col < originalImage.getWidth() - 1 && row < originalImage.getHeight()) {
             char c = 0;
@@ -85,13 +86,18 @@ public class Decrypter {
             c = (char) (Integer.reverse(c << 24) & 0b11111111);
 
             stringBuilder.append(c);
+
+            if(stringBuilder.length()==8){
+                messageLength=Integer.parseInt(stringBuilder.toString());
+            }
+
+            if(messageLength!=null && stringBuilder.length()==messageLength+8) break;
         }
 
-        return stringBuilder.toString();
+        return stringBuilder.toString().substring(8);
     }
 
     private void decryptBitCharacter() {
-        if (col < originalImage.getWidth() - 1) {
             int mask = 0b11111111;
             int rgb = originalImage.getRGB(col, row);
 
@@ -99,13 +105,16 @@ public class Decrypter {
 
             int newB = originalImage.getRGB(col + 1, row) & mask;
 
-            tempBitVal = Math.abs(newB - b);
+            //tempBitVal = Math.abs(newB - b);
+            tempBitVal = newB - b;
+            tempBitVal=tempBitVal&mask;
 
             col += 2;
-        } else {
-            row++;
-            col = 0;
-        }
+
+            if (!(col < originalImage.getWidth() - 1)){
+                row++;
+                col = 0;
+            }
     }
 
     public String RSADecryption(String Text, RSAPrivateKey Key) throws Exception
