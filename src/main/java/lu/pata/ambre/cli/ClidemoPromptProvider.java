@@ -11,7 +11,7 @@ public class ClidemoPromptProvider implements PromptProvider {
     @Override
     public AttributedString getPrompt() {
         return new AttributedString("ambre:>",
-                AttributedStyle.DEFAULT.foreground(AttributedStyle.BLUE)
+                AttributedStyle.DEFAULT.foreground(AttributedStyle.WHITE)
         );
     }
 }
