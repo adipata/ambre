@@ -31,9 +31,9 @@ public class Encoding {
 
     @ShellMethod("Encode data into image.")
     public void enc(
-            @ShellOption(help = "Original image file",defaultValue = "ski.jpg") String fileIn,
-            @ShellOption(help = "Output image file (PNG)",defaultValue = "ski.png") String fileOut,
-            @ShellOption(help = "Data file, usually a TXT",defaultValue = "letter.txt") String fileData
+            @ShellOption(help = "Original image file") String fileIn,
+            @ShellOption(help = "Output image file (PNG)") String fileOut,
+            @ShellOption(help = "Data file, usually a TXT") String fileData
     ) throws IOException {
         Encrypter encrypter=new LowLevelBitEncryption(fileIn,fileOut);
         String content = Files.readString(Paths.get(fileData), StandardCharsets.UTF_8);
@@ -47,7 +47,7 @@ public class Encoding {
 
     @ShellMethod("Decode data in an image")
     public void dec(
-            @ShellOption(help = "Image file",defaultValue = "ski.png") String fileIn,
+            @ShellOption(help = "Image file") String fileIn,
             @ShellOption(help = "Output data from image to file (TXT)",defaultValue = "out.txt") String fileData
     ) throws IOException {
         try {
@@ -62,7 +62,7 @@ public class Encoding {
 
     @ShellMethod("Get info about an input image")
     public void info(
-            @ShellOption(help = "Image file",defaultValue = "ski.jpg") String fileIn
+            @ShellOption(help = "Image file") String fileIn
     ) throws IOException, TikaException {
         TikaConfig tika = new TikaConfig();
         Metadata metadata = new Metadata();
